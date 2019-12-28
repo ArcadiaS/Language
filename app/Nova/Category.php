@@ -22,7 +22,7 @@ class Category extends Resource
     {
         return [
             'slug' => [
-                'source' => 'title'
+                'source' => 'name'
             ]
         ];
     }

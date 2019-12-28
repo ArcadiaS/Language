@@ -22,7 +22,7 @@ class Course extends Resource
     {
         return [
             'slug' => [
-                'source' => 'title'
+                'source' => 'name'
             ]
         ];
     }
