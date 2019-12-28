@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -48,7 +49,13 @@ class Category extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Adı', 'name')
+            Text::make('Adı', 'name'),
+            Images::make('Images', 'image')
+                ->conversionOnDetailView('thumb') // conversion used on the model's view
+                ->conversionOnIndexView('thumb') // conversion used to display the image on the model's index page
+                ->conversionOnForm('thumb') // conversion used to display the image on the model's form
+                ->fullSize() // full size column
+                ->singleImageRules('dimensions:min_width=100'),
         ];
     }
 

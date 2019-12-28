@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
@@ -52,7 +53,13 @@ class Training extends Resource
             ID::make()->sortable(),
             Text::make('Eğitim Adı', 'name'),
             Textarea::make('Kısa Açıklaması', 'description'),
-            BelongsTo::make('Kurs', 'course', Course::class)
+            BelongsTo::make('Kurs', 'course', Course::class),
+            Images::make('Images', 'image')
+                ->conversionOnDetailView('thumb') // conversion used on the model's view
+                ->conversionOnIndexView('thumb') // conversion used to display the image on the model's index page
+                ->conversionOnForm('thumb') // conversion used to display the image on the model's form
+                ->fullSize() // full size column
+                ->singleImageRules('dimensions:min_width=100'),
         ];
     }
 
