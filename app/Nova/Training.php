@@ -62,7 +62,7 @@ class Training extends Resource
                 ->conversionOnForm('thumb') // conversion used to display the image on the model's form
                 ->fullSize() // full size column
                 ->singleImageRules('dimensions:min_width=100'),
-            HasMany::make('Eğitim İçeriği', 'training_contents', TrainingContent::class)
+            HasMany::make('training_contents')
         ];
     }
 

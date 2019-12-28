@@ -18,7 +18,7 @@ class TrainingContent extends Resource
      * @var string
      */
     public static $model = \App\Models\TrainingContent::class;
-    public static $displayInNavigation = false;
+
     public static function label()
     {
         return 'Eğitim İçerikleri';
@@ -63,7 +63,7 @@ class TrainingContent extends Resource
                 ->conversionOnForm('thumb') // conversion used to display the image on the model's form
                 ->fullSize() // full size column
                 ->singleImageRules('dimensions:min_width=100'),
-            BelongsTo::make('Ait Olduğu Eğitim', 'training'),
+            BelongsTo::make('training'),
         ];
     }
 
