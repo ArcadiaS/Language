@@ -65,6 +65,6 @@ class Training extends Model implements HasMedia
 
     public function contents()
     {
-        return $this->hasMany(TrainingContent::class);
+        return $this->hasMany(TrainingContent::class, 'training_id', 'id');
     }
 }
