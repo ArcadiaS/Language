@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
@@ -10,6 +11,22 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Course extends Resource
 {
+    use Sluggable;
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
+
     /**
      * The model the resource corresponds to.
      *
