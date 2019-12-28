@@ -63,7 +63,7 @@ class Training extends Model implements HasMedia
         return $this->belongsTo(Lesson::class);
     }
 
-    public function training_contents()
+    public function contents()
     {
         return $this->hasMany(TrainingContent::class);
     }
