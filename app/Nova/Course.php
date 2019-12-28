@@ -2,30 +2,15 @@
 
 namespace App\Nova;
 
-use Cviebrock\EloquentSluggable\Sluggable;
+use Drobee\NovaSluggable\Slug;
+use Drobee\NovaSluggable\SluggableText;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Course extends Resource
 {
-    use Sluggable;
-
-    /**
-     * Return the sluggable configuration array for this model.
-     *
-     * @return array
-     */
-    public function sluggable()
-    {
-        return [
-            'slug' => [
-                'source' => 'name'
-            ]
-        ];
-    }
 
     /**
      * The model the resource corresponds to.
@@ -68,7 +53,9 @@ class Course extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Kurs Adı', 'name'),
+            SluggableText::make('Kurs Adı', 'name'),
+            Slug::make('Slug')->slugUnique()
+                ->slugModel(static::$model),
             Images::make('Images', 'image')
                 ->conversionOnDetailView('thumb') // conversion used on the model's view
                 ->conversionOnIndexView('thumb') // conversion used to display the image on the model's index page
