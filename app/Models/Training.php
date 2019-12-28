@@ -52,4 +52,14 @@ class Training extends Model implements HasMedia
     protected $guarded = [
 
     ];
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
+
+    public function lesson()
+    {
+        return $this->belongsTo(Lesson::class);
+    }
 }
