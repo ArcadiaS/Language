@@ -4,34 +4,34 @@ namespace App\Nova;
 
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use R64\NovaFields\JSON;
 
-class Training extends Resource
+class TrainingContent extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Training::class;
+    public static $model = \App\Models\TrainingContent::class;
+    public static $displayInNavigation = false;
     public static function label()
     {
-        return 'Eğitimler';
+        return 'Eğitim İçerikleri';
     }
     public static function singularLabel(){
-        return 'Eğitim';
+        return 'Eğitim İçeriği';
     }
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -52,17 +52,16 @@ class Training extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Eğitim Adı', 'name'),
-            Textarea::make('Kısa Açıklaması', 'description'),
-            BelongsTo::make('Bağlı Olduğu Kurs', 'course', Course::class)->nullable(),
-            BelongsTo::make('Bağlı Olduğu Ders', 'lesson', Lesson::class)->nullable(),
+            JSON::make('content', [
+                Text::make('german'),
+                Text::make('turkish'),
+            ]),
             Images::make('Images', 'image')
                 ->conversionOnDetailView('thumb') // conversion used on the model's view
                 ->conversionOnIndexView('thumb') // conversion used to display the image on the model's index page
                 ->conversionOnForm('thumb') // conversion used to display the image on the model's form
                 ->fullSize() // full size column
                 ->singleImageRules('dimensions:min_width=100'),
-            HasMany::make('Eğitim İçeriği', 'training_contents', TrainingContent::class)
         ];
     }
 

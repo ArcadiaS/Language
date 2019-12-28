@@ -7,7 +7,7 @@ use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
 
-class Training extends Model implements HasMedia
+class TrainingContent extends Model implements HasMedia
 {
     use HasMediaTrait;
 
@@ -47,24 +47,10 @@ class Training extends Model implements HasMedia
      * @var array
      */
     protected $casts = [
+        'content' => 'json'
     ];
 
     protected $guarded = [
 
     ];
-
-    public function course()
-    {
-        return $this->belongsTo(Course::class);
-    }
-
-    public function lesson()
-    {
-        return $this->belongsTo(Lesson::class);
-    }
-
-    public function training_contents()
-    {
-        return $this->hasMany(TrainingContent::class);
-    }
 }
