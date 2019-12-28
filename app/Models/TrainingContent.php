@@ -53,4 +53,9 @@ class TrainingContent extends Model implements HasMedia
     protected $guarded = [
 
     ];
+
+    public function training()
+    {
+        return $this->belongsTo(Training::class);
+    }
 }
