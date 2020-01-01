@@ -62,7 +62,7 @@ class TrainingContent extends Resource
                 ->conversionOnForm('thumb') // conversion used to display the image on the model's form
                 ->fullSize() // full size column
                 ->singleImageRules('dimensions:min_width=100'),
-            BelongsTo::make('training')->onlyOnForms(),
+            BelongsTo::make('training'),
         ];
     }
 
