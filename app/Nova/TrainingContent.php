@@ -61,8 +61,8 @@ class TrainingContent extends Resource
                 ->conversionOnIndexView('thumb') // conversion used to display the image on the model's index page
                 ->conversionOnForm('thumb') // conversion used to display the image on the model's form
                 ->fullSize() // full size column
-                ->singleImageRules('dimensions:min_width=100')->onlyOnForms(),
-            BelongsTo::make('training'),
+                ->singleImageRules('dimensions:min_width=100'),
+            BelongsTo::make('training')->onlyOnForms(),
         ];
     }
 
