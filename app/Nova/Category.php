@@ -50,7 +50,6 @@ class Category extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Adı', 'name'),
             SluggableText::make('Adı', 'name'),
             Slug::make('Slug')->slugUnique()
                 ->slugModel(static::$model),
