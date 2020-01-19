@@ -2,8 +2,6 @@
 
 namespace App\Nova;
 
-use App\Enums\QuestionType;
-use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
@@ -12,29 +10,22 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use SimpleSquid\Nova\Fields\Enum\Enum;
 
-class Question extends Resource
+class Quiz extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Question::class;
-    public static function label()
-    {
-        return 'Sorular';
-    }
-    public static function singularLabel(){
-        return 'Soru';
-    }
+    public static $model = \App\Models\Quiz::class;
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -55,17 +46,10 @@ class Question extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Soru', 'name'),
+            Text::make('Quiz Adı', 'name'),
             Textarea::make('Açıklama', 'description')->nullable(),
-            BelongsTo::make('Bağlı Olduğu Quiz', 'quiz', Quiz::class),
-            Images::make('Images', 'image')
-                ->conversionOnDetailView('thumb') // conversion used on the model's view
-                ->conversionOnIndexView('thumb') // conversion used to display the image on the model's index page
-                ->conversionOnForm('thumb') // conversion used to display the image on the model's form
-                ->fullSize() // full size column
-                ->singleImageRules('dimensions:min_width=100'),
-            Enum::make('Type')->attachEnum(QuestionType::class),
-            HasMany::make('Cevaplar', 'answers', Answer::class),
+            BelongsTo::make('Bağlı Olduğu Ders', 'lesson', Lesson::class),
+            BelongsToMany::make('Sorular', 'questions', Question::class)
         ];
     }
 

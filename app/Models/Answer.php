@@ -57,4 +57,9 @@ class Answer extends Model implements HasMedia
     {
         return $this->belongsTo(Question::class);
     }
+
+    public function user_answers()
+    {
+        return $this->belongsToMany(User::class)->withPivot('question_id')->wherePivot('question_id', $this->question_id);
+    }
 }

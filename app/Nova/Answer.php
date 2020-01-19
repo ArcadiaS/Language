@@ -5,6 +5,8 @@ namespace App\Nova;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -58,6 +60,7 @@ class Answer extends Resource
             ->conversionOnForm('thumb') // conversion used to display the image on the model's form
             ->fullSize() // full size column
             ->singleImageRules('dimensions:min_width=100'),
+            Boolean::make('Doğru Cevap Mı?', 'correct')
         ];
     }
 

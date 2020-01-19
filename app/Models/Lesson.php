@@ -57,4 +57,9 @@ class Lesson extends Model implements HasMedia
     {
         return $this->belongsTo(Course::class);
     }
+
+    public function quizzes()
+    {
+        return $this->hasMany(Quiz::class);
+    }
 }

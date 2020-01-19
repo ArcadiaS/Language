@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\QuestionType;
+use BenSampo\Enum\Traits\CastsEnums;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -9,7 +11,7 @@ use Spatie\MediaLibrary\Models\Media;
 
 class Question extends Model implements HasMedia
 {
-    use HasMediaTrait;
+    use HasMediaTrait, CastsEnums;
 
     public function registerMediaConversions(Media $media = null)
     {
@@ -47,6 +49,11 @@ class Question extends Model implements HasMedia
      * @var array
      */
     protected $casts = [
+        'type' => 'int',
+    ];
+    protected $enumCasts = [
+        // 'attribute_name' => Enum::class
+        'type' => QuestionType::class,
     ];
 
     protected $guarded = [
@@ -63,8 +70,8 @@ class Question extends Model implements HasMedia
         return $this->hasMany(Answer::class);
     }
 
-    public function answer()
+    public function quiz()
     {
-        return $this->belongsToMany(Answer::class);
+        return $this->belongsTo(Quiz::class);
     }
 }
