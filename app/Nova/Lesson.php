@@ -61,7 +61,8 @@ class Lesson extends Resource
                 ->conversionOnForm('thumb') // conversion used to display the image on the model's form
                 ->fullSize() // full size column
                 ->singleImageRules('dimensions:min_width=100'),
-            HasMany::make('Quizler', 'quizzes', Quiz::class)
+            HasMany::make('Quizler', 'quizzes', Quiz::class),
+            HasMany::make('Eğitimler', 'trainings', Training::class),
         ];
     }
 

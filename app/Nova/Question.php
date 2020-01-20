@@ -58,7 +58,7 @@ class Question extends Resource
             Text::make('Soru (Almanca)', 'name'),
             Text::make('Soru (Türkçe)', 'name_tr'),
             Textarea::make('Açıklama', 'description')->nullable(),
-            BelongsToMany::make('Bağlı Olduğu Quizler', 'quiz', Quiz::class),
+            BelongsTo::make('Bağlı Olduğu Ders', 'lesson', Lesson::class),
             Images::make('Images', 'image')
                 ->conversionOnDetailView('thumb') // conversion used on the model's view
                 ->conversionOnIndexView('thumb') // conversion used to display the image on the model's index page
@@ -67,6 +67,7 @@ class Question extends Resource
                 ->singleImageRules('dimensions:min_width=100'),
             Enum::make('Type')->attachEnum(QuestionType::class),
             HasMany::make('Cevaplar', 'answers', Answer::class),
+            BelongsToMany::make('Bağlı Olduğu Quizler', 'quizzes', Quiz::class),
         ];
     }
 

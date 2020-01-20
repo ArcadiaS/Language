@@ -2,12 +2,34 @@
 
 namespace App\Nova;
 
+use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
 
-class Profile extends Resource
+class Profile extends Resource implements HasMedia
 {
+    use HasMediaTrait;
+
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('thumb')
+            ->width(368)
+            ->height(232);
+    }
+
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('image')->singleFile();
+    }
+
+    protected $with = [
+        'media'
+    ];
+
     /**
      * The model the resource corresponds to.
      *
@@ -41,6 +63,12 @@ class Profile extends Resource
     {
         return [
             ID::make()->sortable(),
+            Images::make('Images', 'image')
+                ->conversionOnDetailView('thumb') // conversion used on the model's view
+                ->conversionOnIndexView('thumb') // conversion used to display the image on the model's index page
+                ->conversionOnForm('thumb') // conversion used to display the image on the model's form
+                ->fullSize() // full size column
+                ->singleImageRules('dimensions:min_width=100'),
         ];
     }
 

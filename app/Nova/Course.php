@@ -6,6 +6,7 @@ use Drobee\NovaSluggable\Slug;
 use Drobee\NovaSluggable\SluggableText;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 
@@ -62,6 +63,7 @@ class Course extends Resource
                 ->conversionOnForm('thumb') // conversion used to display the image on the model's form
                 ->fullSize() // full size column
                 ->singleImageRules('dimensions:min_width=100'),
+            HasMany::make('lessons')
         ];
     }
 

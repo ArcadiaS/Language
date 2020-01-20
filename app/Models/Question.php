@@ -81,8 +81,8 @@ class Question extends Model implements HasMedia
         return $this->belongsToMany(Answer::class, 'answer_user')->where('user_id', Auth::user()->id)->latest();
     }
 
-    public function quiz()
+    public function quizzes()
     {
-        return $this->belongsTo(Quiz::class);
+        return $this->belongsToMany(Quiz::class);
     }
 }
