@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
@@ -41,6 +42,9 @@ class Training extends Model implements HasMedia
 
     ];
 
+    protected $appends = [
+        'is_active'
+    ];
     /**
      * The attributes that should be cast to native types.
      *
@@ -66,5 +70,13 @@ class Training extends Model implements HasMedia
     public function contents()
     {
         return $this->hasMany(TrainingContent::class, 'training_id', 'id');
+    }
+
+    public function getIsActiveAttribute()
+    {
+        if (Auth::user()->trainings()->where('training_id', $this->id)->wherePivot('finished', 1)->exists()){
+            return false;
+        }
+        return true;
     }
 }

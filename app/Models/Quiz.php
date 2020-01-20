@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\QuestionType;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Quiz extends Model
 {
@@ -26,6 +27,10 @@ class Quiz extends Model
 
     ];
 
+    protected $appends = [
+        'is_active'
+    ];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -43,4 +48,16 @@ class Quiz extends Model
         return $this->belongsToMany(Question::class);
     }
 
+    public function lesson()
+    {
+        return $this->belongsTo(Lesson::class);
+    }
+
+    public function getIsActiveAttribute()
+    {
+        if (Auth::user()->quizzes()->where('quiz_id', $this->id)->wherePivot('finished', 1)->exists()){
+            return false;
+        }
+        return true;
+    }
 }

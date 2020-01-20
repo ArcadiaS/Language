@@ -52,4 +52,6 @@ class Profile extends Model implements HasMedia
     protected $guarded = [
 
     ];
+
+
 }

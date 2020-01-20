@@ -55,9 +55,10 @@ class Question extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Soru', 'name'),
+            Text::make('Soru (Almanca)', 'name'),
+            Text::make('Soru (Türkçe)', 'name_tr'),
             Textarea::make('Açıklama', 'description')->nullable(),
-            BelongsTo::make('Bağlı Olduğu Quiz', 'quiz', Quiz::class),
+            BelongsToMany::make('Bağlı Olduğu Quizler', 'quiz', Quiz::class),
             Images::make('Images', 'image')
                 ->conversionOnDetailView('thumb') // conversion used on the model's view
                 ->conversionOnIndexView('thumb') // conversion used to display the image on the model's index page

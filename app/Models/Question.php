@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\QuestionType;
 use BenSampo\Enum\Traits\CastsEnums;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
@@ -15,9 +16,7 @@ class Question extends Model implements HasMedia
 
     public function registerMediaConversions(Media $media = null)
     {
-        $this->addMediaConversion('thumb')
-            ->width(368)
-            ->height(232);
+        $this->addMediaConversion('thumb')->width(368)->height(232);
     }
 
     public function registerMediaCollections()
@@ -51,6 +50,7 @@ class Question extends Model implements HasMedia
     protected $casts = [
         'type' => 'int',
     ];
+
     protected $enumCasts = [
         // 'attribute_name' => Enum::class
         'type' => QuestionType::class,
@@ -58,6 +58,12 @@ class Question extends Model implements HasMedia
 
     protected $guarded = [
 
+    ];
+
+    protected $appends = [];
+
+    protected $with = [
+        'user_answer',
     ];
 
     public function lesson()
@@ -68,6 +74,11 @@ class Question extends Model implements HasMedia
     public function answers()
     {
         return $this->hasMany(Answer::class);
+    }
+
+    public function user_answer()
+    {
+        return $this->belongsToMany(Answer::class, 'answer_user')->where('user_id', Auth::user()->id)->latest();
     }
 
     public function quiz()

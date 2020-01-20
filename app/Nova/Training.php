@@ -55,7 +55,7 @@ class Training extends Resource
             Text::make('Eğitim Adı', 'name'),
             Textarea::make('Kısa Açıklaması', 'description'),
             BelongsTo::make('Bağlı Olduğu Kurs', 'course', Course::class)->nullable(),
-            BelongsTo::make('Bağlı Olduğu Ders', 'lesson', Lesson::class)->nullable(),
+            BelongsTo::make('Bağlı Olduğu Ders', 'lesson', Lesson::class)->required(),
             Images::make('Images', 'image')
                 ->conversionOnDetailView('thumb') // conversion used on the model's view
                 ->conversionOnIndexView('thumb') // conversion used to display the image on the model's index page

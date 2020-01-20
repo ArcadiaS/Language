@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
@@ -53,6 +54,10 @@ class Lesson extends Model implements HasMedia
 
     ];
 
+    protected $appends = [
+      'is_active'
+    ];
+
     public function course()
     {
         return $this->belongsTo(Course::class);
@@ -61,5 +66,18 @@ class Lesson extends Model implements HasMedia
     public function quizzes()
     {
         return $this->hasMany(Quiz::class);
+    }
+
+    public function trainings()
+    {
+        return $this->hasMany(Training::class);
+    }
+
+    public function getIsActiveAttribute()
+    {
+        if (Auth::user()->quizzes()->where('lesson_id', $this->id)->wherePivot('finished', 0)->exists()){
+            return false;
+        }
+        return true;
     }
 }

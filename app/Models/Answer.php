@@ -47,6 +47,7 @@ class Answer extends Model implements HasMedia
      * @var array
      */
     protected $casts = [
+        'correct' => 'boolean'
     ];
 
     protected $guarded = [

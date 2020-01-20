@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'birth_date',
+        'course_stage',
     ];
 
     /**
@@ -64,6 +65,16 @@ class User extends Authenticatable
     public function answers()
     {
         return $this->belongsToMany(Answer::class)->withPivot('question_id');
+    }
+
+    public function trainings()
+    {
+        return $this->belongsToMany(Training::class)->withPivot('finished', 'latest_location');
+    }
+
+    public function quizzes()
+    {
+        return $this->belongsToMany(Quiz::class)->withPivot('finished', 'latest_location');
     }
 
 }
