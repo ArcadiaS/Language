@@ -37,18 +37,16 @@ class AnswerController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Quiz $quiz
      * @param \App\Models\Question $question
+     * @param \App\Models\Answer $answer
      * @return void
-     * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request, Quiz $quiz, Question $question)
+    public function store(Request $request, Quiz $quiz, Question $question, Answer $answer)
     {
-        $this->validate($request, [
-           'id' => 'required'
-        ]);
+        $user = $request->user();
 
-        $user = Auth::user();
-
-        $answer = Answer::findOrFail($request->id);
+        if ($user->answers()->where('question_id', $question->id)->where('answer_id', $answer->id)->exists()) {
+            return response()->json(true);
+        }
 
         $user->answers()->attach($answer, ['question_id' => $question->id]);
 
@@ -58,7 +56,7 @@ class AnswerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -69,7 +67,7 @@ class AnswerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -80,19 +78,32 @@ class AnswerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Quiz $quiz
+     * @param \App\Models\Question $question
+     * @param \App\Models\Answer $answer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Quiz $quiz, Question $question, Answer $answer)
     {
-        //
+        $user = $request->user();
+
+        $quiz = $user->quizzes()->where('quiz_id', $quiz->id)->firstOrFail();
+        $points = $quiz->pivot->points;
+
+        if ($request->has('points') and !$user->answers()->wherePivot('question_id', $question->id)->exists()) {
+            $user->courses()->updateExistingPivot($quiz->course_id, ['points' => ($points)]);
+
+            return response()->json('Başarılı');
+        }
+
+        return response()->json('Başarılı');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

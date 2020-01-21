@@ -19,6 +19,8 @@ class LessonResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'is_active' => $this->is_active,
+            'content_count' => $this->content_count,
+            'user_content_counts' => $this->user_content_counts,
             'course' => CourseResource::make($this->whenLoaded('course')),
             'quizzes' => QuizResource::collection($this->whenLoaded('quizzes'))
         ];

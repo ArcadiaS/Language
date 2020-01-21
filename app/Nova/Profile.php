@@ -26,10 +26,6 @@ class Profile extends Resource implements HasMedia
         $this->addMediaCollection('image')->singleFile();
     }
 
-    protected $with = [
-        'media'
-    ];
-
     /**
      * The model the resource corresponds to.
      *

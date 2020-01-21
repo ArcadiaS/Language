@@ -58,7 +58,8 @@ class Course extends Model implements HasMedia
     ];
 
     protected $appends = [
-      'is_active'
+      'is_active',
+      'user_points_earned',
     ];
 
     public function users()
@@ -72,6 +73,13 @@ class Course extends Model implements HasMedia
             return true;
         }
         return false;
+    }
+
+    public function getUserPointsEarnedAttribute()
+    {
+        $course = Auth::user()->courses()->wherePivot('course_id', $this->id)->first();
+        if ($course) return $course->pivot->points;
+        return 0;
     }
 
     public function lessons()

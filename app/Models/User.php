@@ -62,6 +62,11 @@ class User extends Authenticatable
         return $this->name.' '.$this->surname;
     }
 
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class)->withPivot('finished', 'training_finished', 'points');
+    }
+
     public function answers()
     {
         return $this->belongsToMany(Answer::class)->withPivot('question_id');
@@ -74,7 +79,7 @@ class User extends Authenticatable
 
     public function quizzes()
     {
-        return $this->belongsToMany(Quiz::class)->withPivot('finished', 'latest_location');
+        return $this->belongsToMany(Quiz::class)->withPivot('finished', 'latest_location', 'points');
     }
 
 }

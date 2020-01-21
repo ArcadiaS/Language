@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class QuizResource extends JsonResource
+class TrainingResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,7 +16,7 @@ class QuizResource extends JsonResource
     {
         $data = parent::toArray($request);
         return array_merge($data, [
-           'questions' => $this->questions
+           'contents' => $this->contents
         ]);
     }
 }

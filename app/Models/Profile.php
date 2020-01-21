@@ -41,6 +41,10 @@ class Profile extends Model implements HasMedia
 
     ];
 
+    protected $with = [
+        'media'
+    ];
+
     /**
      * The attributes that should be cast to native types.
      *

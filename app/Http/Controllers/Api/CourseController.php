@@ -48,12 +48,13 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Course $course
+     * @return void
      */
-    public function show($id)
+    public function show(Request $request, Course $course)
     {
-        //
+        return response()->json($course);
     }
 
     /**

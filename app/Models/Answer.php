@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
+use function Composer\Autoload\includeFile;
 
 class Answer extends Model implements HasMedia
 {
@@ -54,6 +55,10 @@ class Answer extends Model implements HasMedia
 
     ];
 
+    protected $appends = [
+      'selected'
+    ];
+
     public function question()
     {
         return $this->belongsTo(Question::class);
@@ -62,5 +67,10 @@ class Answer extends Model implements HasMedia
     public function user_answers()
     {
         return $this->belongsToMany(User::class)->withPivot('question_id')->wherePivot('question_id', $this->question_id);
+    }
+
+    public function getSelectedAttribute()
+    {
+        return $this->user_answers()->count() > 0;
     }
 }

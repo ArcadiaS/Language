@@ -49,12 +49,14 @@ class LessonController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Course $course
+     * @param \App\Models\Lesson $lesson
+     * @return void
      */
-    public function show($id)
+    public function show(Request $request, Course $course, Lesson $lesson)
     {
-        //
+        return response()->json($lesson);
     }
 
     /**

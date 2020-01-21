@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class Quiz extends Model
 {
-
     /**
      * The attributes that are mass assignable.
      *
@@ -28,7 +27,8 @@ class Quiz extends Model
     ];
 
     protected $appends = [
-        'is_active'
+        'is_active',
+        'question_counts',
     ];
 
     /**
@@ -36,8 +36,7 @@ class Quiz extends Model
      *
      * @var array
      */
-    protected $casts = [
-    ];
+    protected $casts = [];
 
     protected $guarded = [
 
@@ -53,11 +52,17 @@ class Quiz extends Model
         return $this->belongsTo(Lesson::class);
     }
 
+    public function getQuestionCountsAttribute()
+    {
+        return $this->questions()->count();
+    }
+
     public function getIsActiveAttribute()
     {
-        if (Auth::user()->quizzes()->where('quiz_id', $this->id)->wherePivot('finished', 1)->exists()){
+        if (Auth::user()->quizzes()->where('quiz_id', $this->id)->wherePivot('finished', 1)->exists()) {
             return false;
         }
+
         return true;
     }
 }

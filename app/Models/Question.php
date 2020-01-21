@@ -60,10 +60,13 @@ class Question extends Model implements HasMedia
 
     ];
 
-    protected $appends = [];
+    protected $appends = [
+        'image_url'
+    ];
 
     protected $with = [
         'user_answer',
+        'answers'
     ];
 
     public function lesson()
@@ -85,4 +88,10 @@ class Question extends Model implements HasMedia
     {
         return $this->belongsToMany(Quiz::class);
     }
+
+    public function getImageUrlAttribute()
+    {
+        return env('APP_URL').$this->getFirstMediaUrl('image');
+    }
+
 }

@@ -54,8 +54,21 @@ class TrainingContent extends Model implements HasMedia
 
     ];
 
+    protected $with = [
+      'media'
+    ];
+
+    protected $appends = [
+      'image_url'
+    ];
+
     public function training()
     {
         return $this->belongsTo(Training::class);
+    }
+
+    public function getImageUrlAttribute()
+    {
+        return env('APP_URL').$this->getFirstMediaUrl('image');
     }
 }

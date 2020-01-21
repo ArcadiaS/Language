@@ -21,6 +21,7 @@ class CourseResource extends JsonResource
             'image_url' => $this->getFirstMedia('image')->getUrl(),
             'thumb' => $this->getFirstMedia('image')->getUrl('thumb'),
             'is_active' => $this->is_active,
+            'user_points_earned' => $this->user_points_earned,
             'lessons' => LessonResource::collection($this->lessons),
             'users' => CourseUserResource::collection($this->whenLoaded('users')),
         ];
