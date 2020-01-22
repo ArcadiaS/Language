@@ -78,7 +78,6 @@ class RegisterController extends Controller
     {
         $this->validator($request->all())->validate();
         $user = $this->create($request->all());
-        $this->guard()->login($user);
 
         if ($request->wantsJson()){
             return response()->json($user, 200);
