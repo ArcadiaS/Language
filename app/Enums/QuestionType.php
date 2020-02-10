@@ -11,8 +11,11 @@ use BenSampo\Enum\Enum;
  */
 final class QuestionType extends Enum
 {
-    const Classic =   0;
-    const Audio =   1;
+    const Classic = 0;
+
+    const Audio = 1;
+
     const Picture = 2;
+
     const FillTheBlank = 3;
 }

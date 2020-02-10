@@ -65,7 +65,7 @@ class Question extends Resource
                 ->conversionOnForm('thumb') // conversion used to display the image on the model's form
                 ->fullSize() // full size column
                 ->singleImageRules('dimensions:min_width=100'),
-            Enum::make('Type', 'type')->attachEnum(QuestionType::class),
+            Enum::make( 'type')->attachEnum(QuestionType::class),
             HasMany::make('Cevaplar', 'answers', Answer::class),
             BelongsToMany::make('Bağlı Olduğu Quizler', 'quizzes', Quiz::class),
         ];

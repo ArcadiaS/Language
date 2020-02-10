@@ -43,7 +43,6 @@ class Question extends Model implements HasMedia
     ];
 
     protected $enumCasts = [
-        // 'attribute_name' => Enum::class
         'type' => QuestionType::class,
     ];
 
