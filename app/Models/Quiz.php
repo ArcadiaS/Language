@@ -52,6 +52,11 @@ class Quiz extends Model
         return $this->belongsTo(Lesson::class);
     }
 
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
+
     public function getQuestionCountsAttribute()
     {
         return $this->questions()->count();
