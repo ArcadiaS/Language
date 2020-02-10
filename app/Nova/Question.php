@@ -9,6 +9,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -65,7 +66,12 @@ class Question extends Resource
                 ->conversionOnForm('thumb') // conversion used to display the image on the model's form
                 ->fullSize() // full size column
                 ->singleImageRules('dimensions:min_width=100'),
-            Enum::make( 'type')->attachEnum(QuestionType::class),
+            Select::make('Type', 'type')->options([
+               'Classic' => '0',
+               'Audio' => '1',
+               'Picture' => '2',
+               'FillTheBlank' => '3',
+            ]),
             HasMany::make('Cevaplar', 'answers', Answer::class),
             BelongsToMany::make('Bağlı Olduğu Quizler', 'quizzes', Quiz::class),
         ];

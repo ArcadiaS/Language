@@ -42,19 +42,6 @@ class Question extends Model implements HasMedia
 
     ];
 
-    protected $enumCasts = [
-        'type' => QuestionType::class,
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'type' => 'int',
-    ];
-
     protected $guarded = [
 
     ];
