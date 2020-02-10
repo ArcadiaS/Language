@@ -42,6 +42,11 @@ class Question extends Model implements HasMedia
 
     ];
 
+    protected $enumCasts = [
+        // 'attribute_name' => Enum::class
+        'type' => QuestionType::class,
+    ];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -49,11 +54,6 @@ class Question extends Model implements HasMedia
      */
     protected $casts = [
         'type' => 'int',
-    ];
-
-    protected $enumCasts = [
-        // 'attribute_name' => Enum::class
-        'type' => QuestionType::class,
     ];
 
     protected $guarded = [
