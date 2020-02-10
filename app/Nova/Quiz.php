@@ -49,7 +49,7 @@ class Quiz extends Resource
             Text::make('Quiz Adı', 'name'),
             Textarea::make('Açıklama', 'description')->nullable(),
             BelongsTo::make('Bağlı Olduğu Ders', 'lesson', Lesson::class),
-            BelongsTo::make('Bağlı Olduğu Course', 'course', Lesson::class),
+            BelongsTo::make('Bağlı Olduğu Course', 'course', Course::class),
             BelongsToMany::make('Sorular', 'questions', Question::class)
         ];
     }
