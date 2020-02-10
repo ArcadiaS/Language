@@ -12,7 +12,7 @@ use Spatie\MediaLibrary\Models\Media;
 
 class Question extends Model implements HasMedia
 {
-    use HasMediaTrait, CastsEnums;
+    use HasMediaTrait;
 
     public function registerMediaConversions(Media $media = null)
     {

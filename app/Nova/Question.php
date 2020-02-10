@@ -23,13 +23,17 @@ class Question extends Resource
      * @var string
      */
     public static $model = \App\Models\Question::class;
+
     public static function label()
     {
         return 'Sorular';
     }
-    public static function singularLabel(){
+
+    public static function singularLabel()
+    {
         return 'Soru';
     }
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -49,7 +53,7 @@ class Question extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function fields(Request $request)
@@ -60,17 +64,16 @@ class Question extends Resource
             Text::make('Soru (Türkçe)', 'name_tr'),
             Textarea::make('Açıklama', 'description')->nullable(),
             BelongsTo::make('Bağlı Olduğu Ders', 'lesson', Lesson::class),
-            Images::make('Images', 'image')
-                ->conversionOnDetailView('thumb') // conversion used on the model's view
+            Images::make('Images', 'image')->conversionOnDetailView('thumb') // conversion used on the model's view
                 ->conversionOnIndexView('thumb') // conversion used to display the image on the model's index page
                 ->conversionOnForm('thumb') // conversion used to display the image on the model's form
                 ->fullSize() // full size column
                 ->singleImageRules('dimensions:min_width=100'),
             Select::make('Type', 'type')->options([
-               'Classic' => '0',
-               'Audio' => '1',
-               'Picture' => '2',
-               'FillTheBlank' => '3',
+                '0' => 'Classic',
+                '1' => 'Audio',
+                '2' => 'Picture',
+                '3' => 'FillTheBlank',
             ]),
             HasMany::make('Cevaplar', 'answers', Answer::class),
             BelongsToMany::make('Bağlı Olduğu Quizler', 'quizzes', Quiz::class),
@@ -80,7 +83,7 @@ class Question extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function cards(Request $request)
@@ -91,7 +94,7 @@ class Question extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function filters(Request $request)
@@ -102,7 +105,7 @@ class Question extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function lenses(Request $request)
@@ -113,7 +116,7 @@ class Question extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function actions(Request $request)
